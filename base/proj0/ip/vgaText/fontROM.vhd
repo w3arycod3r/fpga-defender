@@ -1,3 +1,5 @@
+-- Source: https://github.com/MadLittleMods/FP-V-GA-Text
+
 -- ROM with synchonous read (inferring Block RAM)
 -- character ROM
 --   - 8-by-16 (8-by-2^4) font

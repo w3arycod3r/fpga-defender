@@ -1,4 +1,5 @@
 -- pb_debounce: Synchronize and debounce pushbuttons
+-- Inspired By: https://projectf.io/posts/fpga-graphics/
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;

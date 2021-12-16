@@ -1,3 +1,5 @@
+-- Source: https://forum.digikey.com/t/binary-to-bcd-converter-vhdl/12530
+
 --------------------------------------------------------------------------------
 --
 --   FileName:         binary_to_bcd_digit.vhd

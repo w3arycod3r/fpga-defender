@@ -1,4 +1,5 @@
 -- spr_rom_arb: Sprite ROM arbitration master
+-- Inspired By: https://github.com/MadLittleMods/FP-V-GA-Text
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library work;

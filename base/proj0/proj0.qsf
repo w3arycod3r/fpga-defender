@@ -450,7 +450,6 @@ set_global_assignment -name VHDL_FILE ip/vgaText/BlockRamArbiter.vhd
 set_global_assignment -name VHDL_FILE ip/vgaText/basicBlockRAM.vhd
 set_global_assignment -name VHDL_FILE triangle.vhd
 set_global_assignment -name VHDL_FILE hud.vhd
-set_global_assignment -name VHDL_FILE font.vhd
 set_global_assignment -name VHDL_FILE player_ship.vhd
 set_global_assignment -name QIP_FILE ip/dual_boot/synthesis/dual_boot.qip
 set_global_assignment -name VHDL_FILE ip/vga_pll_25_175.vhd

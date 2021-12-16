@@ -1,3 +1,5 @@
+// tone_test1: A sound effect sandbox for the "Arduino Apollo" with onboard Piezo on pin D9.
+
 #include "pitches.h"  // must include open source pitches.h found online in libraries folder or make a new tab => https://www.arduino.cc/en/Tutorial/toneMelody
 #define BUZZ_PIN 9
 

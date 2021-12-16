@@ -1,3 +1,6 @@
+// Source: https://www.instructables.com/Creating-arcade-game-sounds-on-a-microcontroller/
+// Author: JColvin91
+
 /***************************************************************************/
 /*								           */
 /*      This is a project inspired by Hamster's own "Colour Invaders"      */

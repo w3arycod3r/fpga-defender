@@ -1,4 +1,5 @@
 -- starfield: Generate an animated starfield using a LFSR
+-- Inspired By: https://projectf.io/posts/fpga-graphics/
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;

@@ -1,3 +1,5 @@
+// Source: https://github.com/hildebrandmw/de10lite-hdl
+
 module spi #(
         // Number of bits per transaction
         parameter DATASIZE = 8,

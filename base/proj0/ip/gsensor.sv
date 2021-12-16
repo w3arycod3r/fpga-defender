@@ -1,3 +1,5 @@
+// Source: https://github.com/hildebrandmw/de10lite-hdl
+
 module gsensor #(
         parameter CLK_FREQUENCY = 50_000_000,
         parameter SPI_FREQUENCY = 2_000_000,

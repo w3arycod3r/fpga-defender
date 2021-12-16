@@ -1,3 +1,6 @@
+// Source: https://www.instructables.com/Creating-arcade-game-sounds-on-a-microcontroller/
+// Author: JColvin91
+
 int buzzerPin = 4;
 
 void setup(){

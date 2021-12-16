@@ -455,17 +455,14 @@ set_global_assignment -name VHDL_FILE ip/vgaText/basicBlockRAM.vhd
 set_global_assignment -name VHDL_FILE ip/vga_pll_25_175.vhd
 set_global_assignment -name VHDL_FILE ip/vga_controller.vhd
 set_global_assignment -name SYSTEMVERILOG_FILE ip/spi.sv
-set_global_assignment -name VHDL_FILE ip/single_port_ram.vhd
 set_global_assignment -name SYSTEMVERILOG_FILE ip/gsensor.sv
 set_global_assignment -name VHDL_FILE ip/binary_to_bcd_digit.vhd
 set_global_assignment -name VHDL_FILE ip/binary_to_bcd.vhd
 set_global_assignment -name VHDL_FILE ip/ADXL345_controller.vhd
 set_global_assignment -name VHDL_FILE sound_effects/effect_gen.vhd
 set_global_assignment -name VHDL_FILE sound_effects/clock_div.vhd
-set_global_assignment -name VHDL_FILE triangle.vhd
 set_global_assignment -name VHDL_FILE player_ship.vhd
 set_global_assignment -name VHDL_FILE overlays.vhd
-set_global_assignment -name VHDL_FILE lfsr8.vhd
 set_global_assignment -name VHDL_FILE image_gen.vhd
 set_global_assignment -name VHDL_FILE hud.vhd
 set_global_assignment -name VHDL_FILE enemies.vhd

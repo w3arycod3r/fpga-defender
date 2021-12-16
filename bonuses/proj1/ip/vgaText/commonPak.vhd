@@ -1,3 +1,5 @@
+-- Source: https://github.com/MadLittleMods/FP-V-GA-Text
+
 --
 --	Package File Template
 --

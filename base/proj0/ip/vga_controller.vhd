@@ -1,3 +1,5 @@
+-- Source: https://forum.digikey.com/t/vga-controller-vhdl/12794
+
 --------------------------------------------------------------------------------
 --
 --   FileName:         vga_controller.vhd

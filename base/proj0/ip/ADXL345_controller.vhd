@@ -1,6 +1,5 @@
 -- Component for interfacing with the ADXL345 accelerometer. This is really just a wrapper for a verilog controller that actually does the work. 
 
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 

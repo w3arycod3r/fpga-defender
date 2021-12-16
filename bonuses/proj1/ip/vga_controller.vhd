@@ -1,4 +1,7 @@
 -- vga_controller: inspired by digikey code and project F blog
+-- Source: https://forum.digikey.com/t/vga-controller-vhdl/12794
+-- Source: https://projectf.io/posts/fpga-graphics/
+
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
