@@ -4,5 +4,7 @@
 **/devkits/
 **/output_files/
 **/simulation/
+**/greybox_tmp/
 *.rpt
 *.bak
+*.json
