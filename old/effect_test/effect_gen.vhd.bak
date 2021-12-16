@@ -1,0 +1,183 @@
+-- Effect program (8 effect slots):
+-- n = # of steps (128 max)
+-- Step 0...n-1 : freq (hz) and duration (msec) (9 bits each)
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
+
+entity effect_gen is
+    port (
+        i_clock : in std_logic;
+        i_reset_n : in std_logic;
+
+        i_launch : in std_logic;
+        i_playerFire : in std_logic;
+        i_enemyFire : in std_logic;
+        i_enemyDestroy : in std_logic;
+        i_playerDestroy : in std_logic;
+
+        o_buzzPin : out std_logic;
+    );
+end entity effect_gen;
+
+architecture rtl of effect_gen is
+    -- Constants
+    CONSTANT	effect_size	:	integer := 128; -- Size of each effect "slot" in words
+    CONSTANT    clks_per_msec : integer := (50e6)*(1e-3); -- 50 MHz clk input
+
+    -- Components
+    component effect_rom
+        port
+        (
+            address		: in std_logic_vector (9 downto 0);
+            clock		: in std_logic  := '1';
+            q		: out std_logic_vector (8 downto 0)
+        );
+    end component;
+
+    component clock_div IS
+        GENERIC (n : NATURAL := 8);
+        PORT ( clock_in, reset  : IN  STD_LOGIC;
+            divisor          : IN  STD_LOGIC_VECTOR(n DOWNTO 0);  -- divisor = 2*(max_cnt+1), size = n+1 bits
+            clock_out        : OUT STD_LOGIC );
+    END component;
+
+    -- Types
+    TYPE state_type IS (S_START, S_IDLE, S_LOAD_N, S_LOAD_FREQ, S_LOAD_DUR, S_WAIT_DUR, S_NEXT_STEP, S_COMP);
+
+    -- Signals
+    signal r_state : state_type;
+    signal r_romAddr : std_logic_vector(9 downto 0);
+    signal r_buzzDivisor : std_logic_vector(27 downto 0);
+    signal r_buzzDisable : std_logic;
+
+    signal w_romData : std_logic_vector(8 downto 0);
+    
+begin
+
+    process(i_clock, i_reset)
+        -- Variables
+        variable v_romAddr : std_logic_vector(9 downto 0);
+        variable v_numSteps : integer range 0 to 511 := 0;
+        variable v_freq : integer range 0 to 511 := 0;
+        variable v_duration_msec : integer range 0 to 511 := 0;
+        variable v_clkCounter : integer range 0 to clks_per_msec := 0;
+    begin
+
+        if (i_reset = '0') then
+            r_state <= S_START;
+
+        elsif rising_edge(clk) then
+            case r_state is
+                when S_START =>
+                    r_state <= S_IDLE;
+                    r_romAddr <= (others => '0');
+                    r_buzzDivisor <= (others => '0');
+                    r_buzzDisable <= '1';
+                when S_IDLE => 
+
+                    -- Set starting ROM addr
+                    if (i_launch = '1') then
+                        v_romAddr := STD_LOGIC_VECTOR(TO_UNSIGNED(0*effect_size, r_romAddr'LENGTH));
+                    elsif (i_playerFire = '1') then
+                        v_romAddr := STD_LOGIC_VECTOR(TO_UNSIGNED(1*effect_size, r_romAddr'LENGTH));
+                    elsif (i_enemyFire = '1') then
+                        v_romAddr := STD_LOGIC_VECTOR(TO_UNSIGNED(2*effect_size, r_romAddr'LENGTH));
+                    elsif (i_enemyDestroy = '1') then
+                        v_romAddr := STD_LOGIC_VECTOR(TO_UNSIGNED(3*effect_size, r_romAddr'LENGTH));
+                    elsif (i_playerDestroy = '1') then
+                        v_romAddr := STD_LOGIC_VECTOR(TO_UNSIGNED(4*effect_size, r_romAddr'LENGTH));
+                    else
+                        v_romAddr := (others => '0');
+                    end if;
+
+                    -- Transition to next state
+                    if (i_launch OR i_playerFire OR i_enemyFire OR i_enemyDestroy OR i_playerDestroy) then
+                        r_state <= S_LOAD_N;
+                        r_romAddr <= v_romAddr;
+                    else
+                        r_state <= S_IDLE;
+                    end if;
+
+                when S_LOAD_N => 
+                    v_numSteps := to_integer(unsigned(w_romData));
+                    r_romAddr <= r_romAddr + '1';
+                    r_state <= S_LOAD_FREQ;
+
+                when S_LOAD_FREQ => 
+                    v_freq := to_integer(unsigned(w_romData));
+                    -- Check for zero, this means no freq (a simple delay in the program)
+                    if (v_freq = 0) then
+                        r_buzzDivisor <= (others => '0')
+                        r_buzzDisable <= '1';
+                    else
+                        r_buzzDivisor <= STD_LOGIC_VECTOR(TO_UNSIGNED(50e6 / v_freq, r_buzzDivisor'LENGTH));
+                        r_buzzDisable <= '0';
+                    end if;
+                    r_romAddr <= r_romAddr + '1';
+                    r_state <= S_LOAD_DUR;
+
+                when S_LOAD_DUR => 
+                    v_duration_msec := to_integer(unsigned(w_romData));
+                    r_romAddr <= r_romAddr + '1';
+                    r_state <= S_WAIT_DUR;
+
+                when S_WAIT_DUR => 
+                    -- Still waiting
+                    if (v_duration_msec > 0) then
+                        v_clkCounter := v_clkCounter + 1;
+
+                        -- Count msec
+                        if (v_clkCounter = clks_per_msec) then
+                            v_clkCounter := 0;
+                            v_duration_msec - 1;
+                        end if;
+
+                        r_state <= S_WAIT_DUR;
+                    -- Duration complete
+                    else
+                        r_state <= S_NEXT_STEP;
+                    end if;
+
+                when S_NEXT_STEP => 
+                    v_numSteps := v_numSteps - 1; -- Decr step counter
+
+                    if (v_numSteps = 0) then
+                        r_state <= S_COMP;
+                    else
+                        r_state <= S_LOAD_FREQ;
+                    end if;
+                
+                -- Sequence complete
+                when S_COMP => 
+                    r_state <= S_START;
+                when others =>
+                    r_state <= S_START;
+            end case;
+        end if;
+
+    end process;
+
+    -- Output logic
+    process (r_state) begin
+
+        
+
+    end process;
+
+    -- Instantiation and port mapping
+    U1 : effect_rom port map (
+        address => r_romAddr,
+        clock => i_clock,
+        q => w_romData
+    );
+
+    U2 : clock_div generic map (
+        n => 27
+    ) port map (
+        clock_in => i_clock,
+        reset => r_buzzDisable,
+        divisor => r_buzzDivisor,
+        clock_out => o_buzzPin
+    );
+
+end architecture rtl;

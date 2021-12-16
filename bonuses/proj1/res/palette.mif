@@ -1,0 +1,28 @@
+-- 16 color palette for FPGA Defender sprites
+DEPTH = 16;
+WIDTH = 12;
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+CONTENT
+BEGIN
+
+    -- 16 colors of 12 bits each (4 bits each for RGB)
+
+    -- Palette values:
+    0: 000; -- black
+    1: 515; -- transparent
+    2: 888; -- grey
+    3: F00; -- red
+    4: F0F; -- fuchsia
+    5: 808; -- purple
+    6: 00F; -- blue
+    7: FB0; -- orange
+    8: 0F0; -- lime
+    9: 080; -- green
+    A: 0FF; -- aqua
+    B: 800; -- maroon
+    C: FFF; -- XXX
+    D: FFF; -- XXX
+    E: FFF; -- XXX
+    F: FFF; -- white
+END;
