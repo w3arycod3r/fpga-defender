@@ -57,3 +57,17 @@ To Flash:
 4. Click Add File, select your .pof or .sof
 5. For .pof, check the top Program/Configure checkbox
 6. Click Start
+
+# Useful Links
+https://forum.digikey.com/t/binary-to-bcd-converter-vhdl/12530  
+https://forum.digikey.com/t/vga-controller-vhdl/12794  
+https://github.com/hildebrandmw/de10lite-hdl  
+https://www.nandland.com/goboard/pong-game-in-fpga-with-go-board-vga.html  
+https://projectf.io/posts/fpga-graphics/  
+https://ece320web.groups.et.byu.net/labs/VGATextGeneration/VGA_Terminal.html  
+http://viznut.fi/unscii/  
+https://github.com/MadLittleMods/FP-V-GA-Text  
+https://seanriddle.com/ripper.html  
+https://seanriddle.com/defendersprites.jpg  
+https://seanriddle.com/defendersprites.txt  
+https://ezgif.com/  
