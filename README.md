@@ -1,4 +1,5 @@
 # fpga-defender
+This project was created for Dr. J. W. Bruce's [Digital System Design](http://jwbruce.info/teaching/ece4110/) class at [Tennessee Technological University](https://www.tntech.edu/engineering/programs/ece/).
 
 # Demo
 
