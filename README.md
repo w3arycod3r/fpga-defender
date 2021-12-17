@@ -37,3 +37,13 @@ The screen captures shown in the "Demo" section are quite choppy and full of vis
 <p align="center">
   <img src="img/proj1_res_use.png" width=450>
 </p>
+
+# Flashing
+You've heard enough and you'd like to play? You'll need:
+1. A [DE10-Lite](https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=1021) board.
+2. A passive [piezo buzzer](https://www.adafruit.com/product/160) connected between IO 12 and GND on the Arduino shield header. (if sound is desired)
+3. A VGA cable and monitor.
+4. [Quartus Prime Lite](https://fpgasoftware.intel.com/?edition=lite) installed.
+5. Lightning fast reflexes ;)
+
+Inside the [flash](/flash) folder, you'll find the compiled bitstreams suitable for flashing with Quartus. The .pof (Programmer Object File) .sof(SRAM Object File)
