@@ -9,7 +9,7 @@ This project was created for Dr. J. W. Bruce's [Digital System Design](http://jw
 
 [Video with sound](https://www.youtube.com/watch?v=Bie1J2sb7rM)
 # Specification
-Create a simplified, stylized version of the 1981 arcade classic [*Defender*](https://en.wikipedia.org/wiki/Defender_(1981_video_game)) for the [DE10-Lite](https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=1021) MAX 10 FPGA dev board. The video output is 640x480 @ 60 Hz over VGA. The ship is controlled using the on-board accelerometer. Tilting the board from the horizontal will move the ship up, down, left, and right. On-board pushbuttons control game start, pause, and ship fire. Sound effects are played on an attached piezo buzzer. The score is displayed at the top right of the screen, and the current number of lives is shown at the top left. Also, the score and lives are indicated on the 7-segment displays and LEDs on-board.
+Create a simplified, stylized version of the 1981 arcade classic [*Defender*](https://en.wikipedia.org/wiki/Defender_(1981_video_game)) for the [DE10-Lite](https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=1021) MAX 10 FPGA dev board. The video output is 640x480 @ 60 Hz over [VGA](https://en.wikipedia.org/wiki/Video_Graphics_Array). The ship is controlled using the on-board accelerometer. Tilting the board from the horizontal will move the ship up, down, left, and right. On-board pushbuttons control game start, pause, and ship fire. Sound effects are played on an attached piezo buzzer. The score is displayed at the top right of the screen, and the current number of lives is shown at the top left. Also, the score and lives are indicated on the 7-segment displays and LEDs on-board.
 
 <p align="center">
   <img src="img/board.jpg" width=450>
@@ -18,7 +18,7 @@ Create a simplified, stylized version of the 1981 arcade classic [*Defender*](ht
 # Gameplay
 Enemies spawn in from the right. The spawning is random, using a [LFSR](https://en.wikipedia.org/wiki/Linear-feedback_shift_register) pseudorandom number generator. With each spawn, a random enemy "variant" and location is chosen. Each "variant" consists of a sprite and a scale factor. Points are awarded for destroying the enemies. More points are awarded for smaller enemies. As your score increases, the "stage" is increased. In later stages, more enemies are on-screen at once and the enemy speed is increased. Colliding with an enemy results in a lost life. When all lives are lost, the game is over. Every 500 points, an extra life is awarded.
 
-# Sound effects
+# Sound Effects
 The [effect_gen](bonuses/proj1/sound_effects/effect_gen.vhd) module controls the piezo buzzer. This module is a [FSM](https://en.wikipedia.org/wiki/Finite-state_machine) that read a simple "program" from an initialized [BRAM](https://www.nandland.com/articles/block-ram-in-fpga.html) in the FPGA. The [program](bonuses/proj1/res/effect_mem.mif) is simply a list of frequencies and durations to be played on the buzzer that make a sound effect.
 
 # Sprites
@@ -43,11 +43,17 @@ You've heard enough and you'd like to play? You'll need:
 1. A [DE10-Lite](https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=1021) board.
 2. A passive [piezo buzzer](https://www.adafruit.com/product/160) connected between IO 12 and GND on the Arduino shield header. (if sound is desired)
 3. A VGA cable and monitor.
-4. [Quartus Prime Lite](https://fpgasoftware.intel.com/?edition=lite) installed.
+4. [Quartus Prime Lite](https://fpgasoftware.intel.com/?edition=lite) and the USB-Blaster [drivers](https://www.intel.com/content/www/us/en/support/programmable/support-resources/download/dri-usb-blaster-vista.html) installed. Try [disabling](https://www.howtogeek.com/167723/how-to-disable-driver-signature-verification-on-64-bit-windows-8.1-so-that-you-can-install-unsigned-drivers/) driver signature enforcement in Windows 10 if you encounter issues installing the drivers.
 5. Lightning fast reflexes ;)
 
 Inside the [flash](/flash) folder, you'll find the compiled bitstreams suitable for flashing with Quartus. Use the .sof files (SRAM Object Files) for a quick flash that will not persist between power cycles of the board. Use the .pof files (Programmer Object Files) for a more "permanent" flash that will survive a power cycle. Flashing the pof will take longer than the sof.
 
 proj0 is the base game with basic squares as enemies and a white background. proj1 is the "bonus" version with colorful sprites and starfield background.
 
-
+To Flash:
+1. Open Quartus Prime Lite
+2. Click Tools->Programmer
+3. Click Hardware Setup and select the USB-Blaster, then close
+4. Click Add File, select your .pof or .sof
+5. For .pof, check the top Program/Configure checkbox
+6. Click Start
