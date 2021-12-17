@@ -46,4 +46,8 @@ You've heard enough and you'd like to play? You'll need:
 4. [Quartus Prime Lite](https://fpgasoftware.intel.com/?edition=lite) installed.
 5. Lightning fast reflexes ;)
 
-Inside the [flash](/flash) folder, you'll find the compiled bitstreams suitable for flashing with Quartus. The .pof (Programmer Object File) .sof(SRAM Object File)
+Inside the [flash](/flash) folder, you'll find the compiled bitstreams suitable for flashing with Quartus. Use the .sof files (SRAM Object Files) for a quick flash that will not persist between power cycles of the board. Use the .pof files (Programmer Object Files) for a more "permanent" flash that will survive a power cycle. Flashing the pof will take longer than the sof.
+
+proj0 is the base game with basic squares as enemies and a white background. proj1 is the "bonus" version with colorful sprites and starfield background.
+
+
