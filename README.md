@@ -33,6 +33,11 @@ Again, I was inspired by the Project F [blog](https://projectf.io/posts/fpga-ad-
 # Smoothness
 The screen captures shown in the "Demo" section are quite choppy and full of visual glitches. This is due to the low-quality capture hardware available on a fixed budget :) The actual output on a VGA monitor is actually quite smooth (60 FPS), sharp, and devoid of graphical artifacts or tearing. Surprisingly, this was done without framebuffering. Each pixel is drawn "just-in-time" based on all the game objects' current state. I simply restricted all object "state" updates to the end of the frame, i.e. during the blanking interval, when the screen is not actively drawing the frame. All updates are done before the drawing of the next frame begins, so there is no tearing.
 
+# Collision Detection
+Position and size data (yielding a "hitbox") for each game object is stored in registers (DFF's) inside the FPGA. There are a fixed number of enemy and bullet "slots". See [enemies.vhd](bonuses/proj1/enemies.vhd). This approach caused interactions between these objects (i.e. collision detection) to consume many logic elements (LE's). There must be a separate combinational "collision circuit" for each possible pair of colliding objects. Obviously, this does not scale well. We kept the number of slots small in order to minimize LE use.
+
+A better approach would be to use a single collision circuit and iterate through all possible collision pairs using a FSM, using this single circuit to check for collision and respond appropriately. This would be like a special purpose "collision processor" that could be triggered at the end of each frame. This would take more time per-frame to handle collision but it would significantly reduce LE usage.
+
 # FPGA Resource Usage
 <p align="center">
   <img src="img/proj1_res_use.png" width=450>
