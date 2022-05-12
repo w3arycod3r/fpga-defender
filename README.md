@@ -15,6 +15,8 @@ Create a simplified, stylized version of the 1981 arcade classic [*Defender*](ht
   <img src="img/board.jpg" width=450>
 </p>
 
+Dr. Bruce's original specification is shown in [f21_spec.pdf](docs/f21_spec.pdf)
+
 # Gameplay
 Enemies spawn in from the right. The spawning is random, using a [LFSR](https://en.wikipedia.org/wiki/Linear-feedback_shift_register) pseudorandom number generator. With each spawn, a random enemy "variant" and location is chosen. Each "variant" consists of a sprite and a scale factor. Points are awarded for destroying the enemies. More points are awarded for smaller enemies. As your score increases, the "stage" is increased. In later stages, more enemies are on-screen at once and the enemy speed is increased. Colliding with an enemy results in a lost life. When all lives are lost, the game is over. Every 500 points, an extra life is awarded.
 
