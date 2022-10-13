@@ -50,7 +50,7 @@ You've heard enough and you'd like to play? You'll need:
 1. A [DE10-Lite](https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=1021) board.
 2. A passive [piezo buzzer](https://www.adafruit.com/product/160) connected between IO 12 and GND on the Arduino shield header. (if sound is desired)
 3. A VGA cable and monitor.
-4. [Quartus Prime Lite](https://fpgasoftware.intel.com/?edition=lite) and the USB-Blaster [drivers](https://www.intel.com/content/www/us/en/support/programmable/support-resources/download/dri-usb-blaster-vista.html) installed. Try [disabling](https://www.howtogeek.com/167723/how-to-disable-driver-signature-verification-on-64-bit-windows-8.1-so-that-you-can-install-unsigned-drivers/) driver signature enforcement in Windows 10 if you encounter issues installing the drivers.
+4. [Quartus Prime Lite](https://fpgasoftware.intel.com/?edition=lite) (Version 20.1 was used) and the USB-Blaster [drivers](https://www.intel.com/content/www/us/en/support/programmable/support-resources/download/dri-usb-blaster-vista.html) installed. Try [disabling](https://www.howtogeek.com/167723/how-to-disable-driver-signature-verification-on-64-bit-windows-8.1-so-that-you-can-install-unsigned-drivers/) driver signature enforcement in Windows 10 if you encounter issues installing the drivers.
 5. Lightning-fast reflexes ;)
 
 Inside the [flash](/flash) folder, you'll find the compiled bitstreams suitable for flashing with Quartus. Use the .sof files (SRAM Object Files) for a quick flash that will not persist between power cycles of the board. Use the .pof files (Programmer Object Files) for a more "permanent" flash that will survive a power cycle. Flashing the pof will take longer than the sof.
