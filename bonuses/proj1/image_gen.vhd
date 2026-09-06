@@ -126,14 +126,14 @@ BEGIN
         if rising_edge(pixel_clk) and r_logic_update = '1' then
 
             -- Debug
-            if SW_state(9) = '1' and r_key_press(0) = '1' then
-                if r_spr_sel < c_spr_data_slots_used-1 then
-                    r_spr_sel <= r_spr_sel+1;
-                else
-                    r_spr_sel <= 0;
-                end if;
+            -- if SW_state(9) = '1' and r_key_press(0) = '1' then
+            --     if r_spr_sel < c_spr_data_slots_used-1 then
+            --         r_spr_sel <= r_spr_sel+1;
+            --     else
+            --         r_spr_sel <= 0;
+            --     end if;
 
-            end if;
+            -- end if;
             
         end if;
     end process;
@@ -181,8 +181,8 @@ BEGIN
                 r_extra_life_award <= '1';
 
             -- Debug
-            elsif SW_state(9) = '1' and r_key_press(0) = '1' and r_num_lives < c_max_lives then
-                r_num_lives <= r_num_lives+1;
+            -- elsif SW_state(9) = '1' and r_key_press(0) = '1' and r_num_lives < c_max_lives then
+            --     r_num_lives <= r_num_lives+1;
             end if;
             
             last_score := r_score;
@@ -199,10 +199,10 @@ BEGIN
             elsif w_cannon_collide = '1' then
                 new_score := r_score+w_score_inc;
             -- Debug
-            elsif SW_state(9) = '1' and r_key_press(1) = '1' then
-                new_score := r_score+100;
-            elsif SW_state(7) = '1' and r_key_press(1) = '1' then
-                new_score := c_max_score-100;
+            -- elsif SW_state(9) = '1' and r_key_press(1) = '1' then
+            --     new_score := r_score+100;
+            -- elsif SW_state(7) = '1' and r_key_press(1) = '1' then
+            --     new_score := c_max_score-100;
             end if;
 
             -- Clip the score count at the maximum
@@ -294,9 +294,9 @@ BEGIN
             end if;
 
             -- Debug switch sound override
-            if (SW_state(8) = '1') then
-                effectTrig := '0';
-            end if;
+            -- if (SW_state(8) = '1') then
+            --     effectTrig := '0';
+            -- end if;
 
             -- Variables to signals
             r_effectSel <= effectSel;
